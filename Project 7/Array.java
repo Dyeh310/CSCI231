@@ -10,6 +10,11 @@ import java.util.Scanner;
 
 /**
  *
+ * This program implements various methods to an array.
+ * It can initialize, print, sort, find the range, find the smallest number
+ * find the largest number, search, and sort the array.
+ * 
+ * 
  * @author Nicholas Heyd
  * @version 1.0 / 10-9-18 -- 10-11-18
  */
@@ -42,7 +47,8 @@ public class NicholasHeydProj7 {
         System.out.println("Range: " + range(arr));
         
         //Print out the average of the array elements
-        average(arr);
+        System.out.print("Average of elements in the array: ");
+        System.out.println(average(arr));
         
         //Ask user to enter a search key
         System.out.println("Please enter a key to search for: ");
@@ -55,16 +61,25 @@ public class NicholasHeydProj7 {
             System.out.println(key + " was not found in the array.");
         }
         
-        //Print out array again to see the sorted array 
+        //Call the selectSort function to sort the array
         selectSort(arr);
+        
+        //Print out array again to see the sorted array 
         System.out.println("The sorted array now looks like: ");
         printArray(arr);
     }
     
     //--------------METHODS------------
     
-    //return the index of the first occurence of key in arr
-    //if key is not found in arra, return - 1
+    /**
+     * Performs a linear search to locate a key in the function.
+     * If found, returns the key. If not the function returns -1.
+     * 
+     * 
+     * @param arr the given int[]
+     * @param key the given int to search for
+     * @return the key if found, if not return -1.
+     */
     public static int linearSearch(int arr[], int key){
         for (int i = 0; i < arr.length; i++){//loop through the array
             if (key == arr[i]){//match key to element in the array
@@ -74,22 +89,32 @@ public class NicholasHeydProj7 {
         return -1; //if the key is not found return -1.
     }
     
-    //sort the arr from least to largest by using select sort algorithim
+    /**
+     * performs a the select sort method on the array. Does not return anything,
+     * but leaves the array sorted.
+     * 
+     * @param arr the given int[].
+     */
     public static void selectSort(int arr[]){
-        for (int i = 0; i < arr.length-1; i++) {//outer for loop
-            int min_index = i; //holds the minimal index
-            for (int j = i+1; j < arr.length; j++) {
-                if (arr[j] < arr[min_index]) {
-                    min_index = j;
-                }
-                int temp = arr[min_index];
-                arr[min_index] = arr[i];
-                arr[i] = temp;
-            }
+        int n = arr.length;
+ 
+        for (int i = 0; i < n-1; i++) {
+            int min_idx = i;
+            for (int j = i+1; j < n; j++)
+                if (arr[j] < arr[min_idx])
+                    min_idx = j;
+            int temp = arr[min_idx];
+            arr[min_idx] = arr[i];
+            arr[i] = temp;
         }
     }
     
-    //print out all array elements. 5 elements per line
+    /**
+     * Prints the counts of the array, with 5 elements on each line.
+     * Does not return anything.
+     * 
+     * @param arr the given int[] 
+     */
     public static void printArray(int arr[]){
         int lineCounter = 0;//keeps track of how many elements were printed
         for (int i = 0; i < arr.length; i++){
@@ -102,8 +127,12 @@ public class NicholasHeydProj7 {
         }
     }
     
-    //assign each element in array with a random number
-    //between 1 and 100, inclusive
+    /**
+     * Accepts an array of any given size. Randomly generates and inserts a number
+     * 1 to 100 in each index of the array. Does not return anything
+     * 
+     * @param arr the given int[] 
+     */
     public static void initializeArray(int arr[]){
         Random rand = new Random();//import random class
         
@@ -112,31 +141,36 @@ public class NicholasHeydProj7 {
         }
         
     }
-    
-    //find the range of all array elements
-    //the range is defined as the difference between the largest and smallest elements
+
+    /**
+     * Accepts an int array. Calls the smallest and largest functions. Then subtracts
+     * the smallest from the largest element in the array. Returns that range.
+     * 
+     * @param arr accepts an int[]
+     * @return the int range which contains the largest -smallest elements in the array 
+     */
     public static int range (int arr[]){
         int range = 0;
         
         int largest = arr[0];
         int smallest = arr[0];
-        
-        //loop through the array
-        for (int i = 0; i < arr.length; i++){
-            //find the smallest element
-            if (smallest > arr[i]){
-                smallest = arr[i];            
-            }
-            //find the largest element
-            if (largest < arr[i]){
-                largest = arr[i];
-            }
-        }
-            //subtract to find the range
-            range = largest - smallest;
-            return range;
+    
+        //call the largest method
+        largest = largest(arr);
+        //call the smallest method
+        smallest = smallest(arr);
+            
+        //subtract to find the range
+        range = largest - smallest;
+        return range;
     }
     
+    /**
+     * Accepts an int[] and returns the largest element in the array
+     * 
+     * @param arr the given int[]
+     * @return the largest int in the array
+     */
     public static int largest(int arr[]) {
         int largest = arr[0];
         
@@ -148,7 +182,12 @@ public class NicholasHeydProj7 {
         return largest;
     }
     
-    //find the smallest element in the array
+    /**
+     * Accepts the int[] and returns the smallest element in the array
+     * 
+     * @param arr the given int[]
+     * @return the smallest int in the array
+     */
     public static int smallest(int arr[]) {
         int smallest = arr[0];
         
@@ -161,10 +200,25 @@ public class NicholasHeydProj7 {
         return smallest;
     }
     
-    //find the average value of all elements in array
+    /**
+     * Accepts the intp[ and returns the average of all the elements in the array.
+     * 
+     * @param arr the given int[]
+     * @return the average of all elements in the array in the form of a double
+     */
     public static double average(int arr[]) {
-        double answer = 0;
+        double average = 0;
+        int total = 0;
         
-        return answer;
+        //loop through adding the value of each element to the total
+        for (int i = 0; i < arr.length; i++) {
+            total += arr[i];
+        }
+        //computer the average from total and the number of indexes in the array
+        average = (total / arr.length);
+        
+        return average;
     }
 }
+
+
